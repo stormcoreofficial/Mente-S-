@@ -1,0 +1,2522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mente Sã | Psicologia & Bem-Estar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --success: #27ae60;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 0.7rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 80px;
+            left: -100%;
+            width: 100%;
+            height: calc(100vh - 80px);
+            background-color: white;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 0;
+            gap: 1.5rem;
+            transition: all 0.4s ease;
+            z-index: 999;
+            overflow-y: auto;
+        }
+        
+        .nav-links.active {
+            left: 0;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        .nav-links a:not(.cta-button):hover {
+            color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .cta-button {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+        }
+        
+        .cta-button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(231, 76, 60, 0.4);
+        }
+        
+        .cta-button.secondary {
+            background-color: var(--secondary);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .cta-button.secondary:hover {
+            background-color: #2980b9;
+            box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--dark);
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 7rem 1.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(236, 240, 241, 0.9) 0%, rgba(236, 240, 241, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1593810450967-f9c42742e326?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.1);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .hero-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            min-width: 150px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 5rem 1.5rem;
+            background-color: white;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background-color: var(--accent);
+            transition: height 0.4s ease;
+        }
+        
+        .service-card:hover::before {
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            background-color: rgba(52, 152, 219, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover .service-icon {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover h3 {
+            color: var(--secondary);
+        }
+        
+        .service-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .service-card .cta-button {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 5rem 1.5rem;
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            position: relative;
+        }
+        
+        .about-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .about-content {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .about h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .about p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .about-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+        
+        .feature-item {
+            flex: 1 1 200px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .feature-item p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--text-light);
+        }
+        
+        /* Team Section */
+        .team {
+            padding: 5rem 1.5rem;
+            background-color: white;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s;
+            text-align: center;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .team-image {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .team-card:hover .team-image img {
+            transform: scale(1.05);
+        }
+        
+        .team-info {
+            padding: 1.5rem;
+        }
+        
+        .team-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .team-info p.specialty {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .team-info p.bio {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        
+        .social-link {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: var(--secondary);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 5rem 1.5rem;
+            background-color: var(--light);
+        }
+        
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+        
+        .testimonial-slide {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin: 0 1rem;
+            text-align: center;
+        }
+        
+        .testimonial-content {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        .testimonial-content::before,
+        .testimonial-content::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--secondary);
+            opacity: 0.3;
+            position: absolute;
+        }
+        
+        .testimonial-content::before {
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-content::after {
+            bottom: -40px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        
+        .author-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 3px solid var(--secondary);
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #bdc3c7;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .slider-dot.active {
+            background-color: var(--secondary);
+            transform: scale(1.2);
+        }
+        
+        /* Psychological Tips Section */
+        .tips {
+            padding: 5rem 1.5rem;
+            background-color: white;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .tip-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--secondary);
+            transition: height 0.4s ease;
+        }
+        
+        .tip-card:hover::before {
+            height: 100%;
+            opacity: 0.1;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .tip-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tip-card p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .tip-icon {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 3rem;
+            color: rgba(52, 152, 219, 0.1);
+            z-index: 0;
+            transition: all 0.3s;
+        }
+        
+        .tip-card:hover .tip-icon {
+            color: rgba(52, 152, 219, 0.2);
+            transform: scale(1.2);
+        }
+        
+        /* Books Section */
+        .books {
+            padding: 5rem 1.5rem;
+            background-color: var(--light);
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s;
+            position: relative;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .book-cover {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+        
+        .book-info {
+            padding: 1.5rem;
+        }
+        
+        .book-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+        
+        .book-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .book-price {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 5rem 1.5rem;
+            background-color: white;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            text-align: center;
+        }
+        
+        .contact-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .contact-info p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            text-align: center;
+        }
+        
+        .contact-icon {
+            background-color: rgba(52, 152, 219, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover .contact-icon {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .contact-item h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .contact-item p {
+            color: var(--text-light);
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        
+        .contact-form {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h3 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: white;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .appointment-type {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .appointment-option {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .appointment-option input[type="radio"] {
+            display: none;
+        }
+        
+        .appointment-option label {
+            display: block;
+            padding: 1rem;
+            background-color: white;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .appointment-option input[type="radio"]:checked + label {
+            border-color: var(--secondary);
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+        
+        .appointment-option i {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        .calendar {
+            margin-top: 1.5rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calendar-header h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .calendar-header button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .calendar-header button:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .calendar-day {
+            text-align: center;
+            padding: 0.7rem 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .calendar-day:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+        
+        .calendar-day.selected {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .calendar-day.disabled {
+            color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .time-slots {
+            margin-top: 1.5rem;
+        }
+        
+        .time-slots h4 {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .slot-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+        
+        .slot-button {
+            padding: 0.7rem 1rem;
+            background-color: white;
+            border: 2px solid #dfe6e9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-light);
+            flex: 1;
+            min-width: 80px;
+        }
+        
+        .slot-button:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .slot-button.selected {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+        }
+        
+        .form-submit {
+            margin-top: 2rem;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            padding: 5rem 1.5rem;
+            background-color: var(--light);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .faq-question h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-right: 1rem;
+        }
+        
+        .faq-question i {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer p {
+            color: var(--text-light);
+            line-height: 1.7;
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-item.active .faq-question {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 1.5rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        .footer-about {
+            text-align: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+        
+        .footer-logo i {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .footer p {
+            color: #bdc3c7;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-link {
+            background-color: #34495e;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .social-link:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            text-align: center;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-newsletter {
+            text-align: center;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #2980b9;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Tablet */
+        @media (min-width: 768px) {
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.3rem;
+            }
+            
+            .services-grid, .tips-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-about, .footer-links {
+                text-align: left;
+            }
+            
+            .footer-social {
+                justify-content: flex-start;
+            }
+            
+            .footer-links h3::after {
+                left: 0;
+                transform: none;
+            }
+        }
+        
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .navbar {
+                padding: 1.2rem 3rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.6rem;
+            }
+            
+            .menu-toggle {
+                display: none;
+            }
+            
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background-color: transparent;
+                flex-direction: row;
+                padding: 0;
+                display: flex;
+                left: 0;
+                overflow-y: visible;
+            }
+            
+            .nav-links a {
+                font-size: 1rem;
+                padding: 0.5rem 1.2rem;
+                margin: 0 0.3rem;
+            }
+            
+            .nav-links a.cta-button {
+                margin-left: 1rem;
+                margin-top: 0;
+            }
+            
+            .hero {
+                padding: 8rem 3rem 4rem;
+                flex-direction: row;
+                text-align: left;
+                min-height: 100vh;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .hero-content {
+                width: 50%;
+                max-width: none;
+                margin-bottom: 0;
+                text-align: left;
+                padding-right: 3rem;
+            }
+            
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                margin-left: 0;
+                margin-right: 0;
+                text-align: left;
+            }
+            
+            .hero-buttons {
+                justify-content: flex-start;
+            }
+            
+            .hero-image {
+                width: 45%;
+                max-width: none;
+            }
+            
+            .hero-stats {
+                justify-content: flex-start;
+            }
+            
+            .services {
+                padding: 7rem 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.8rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            
+            .about {
+                padding: 7rem 3rem;
+                flex-direction: row;
+                gap: 5rem;
+                align-items: center;
+            }
+            
+            .about-image {
+                width: 45%;
+                order: 1;
+            }
+            
+            .about-content {
+                width: 50%;
+                order: 2;
+                text-align: left;
+                max-width: none;
+            }
+            
+            .about h2 {
+                font-size: 2.8rem;
+            }
+            
+            .about h2::after {
+                left: 0;
+                transform: none;
+            }
+            
+            .about-features {
+                justify-content: flex-start;
+            }
+            
+            .team {
+                padding: 7rem 3rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .testimonials {
+                padding: 7rem 3rem;
+            }
+            
+            .tips {
+                padding: 7rem 3rem;
+            }
+            
+            .tips-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            
+            .books {
+                padding: 7rem 3rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+            
+            .cta-section {
+                padding: 7rem 3rem;
+            }
+            
+            .contact {
+                padding: 7rem 3rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 5rem;
+            }
+            
+            .contact-info {
+                text-align: left;
+            }
+            
+            .contact-info h2::after {
+                left: 0;
+                transform: none;
+            }
+            
+            .contact-item {
+                flex-direction: row;
+                align-items: flex-start;
+                text-align: left;
+                gap: 1.5rem;
+            }
+            
+            .faq {
+                padding: 7rem 3rem;
+            }
+            
+            .footer {
+                padding: 5rem 3rem 3rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 4rem;
+            }
+            
+            .footer-newsletter {
+                text-align: left;
+            }
+            
+            .newsletter-form {
+                flex-wrap: nowrap;
+            }
+        }
+        
+        /* Large Desktop */
+        @media (min-width: 1440px) {
+            .hero h2 {
+                font-size: 4rem;
+            }
+            
+            .section-title h2, .about h2, .contact-info h2 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#home" class="logo">
+            <i class="fas fa-brain"></i>
+            <h1>Mente Sã</h1>
+        </a>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#home">Início</a>
+            <a href="#services">Serviços</a>
+            <a href="#about">Sobre</a>
+            <a href="#team">Equipe</a>
+            <a href="#tips">Dicas</a>
+            <a href="#books">Livros</a>
+            <a href="#contact">Contato</a>
+            <a href="#contact" class="cta-button">Agendar Consulta</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Sua jornada para o bem-estar mental começa aqui</h2>
+            <p>Na Mente Sã, oferecemos apoio psicológico especializado para ajudar você a superar desafios, desenvolver resiliência e alcançar uma vida mais plena e equilibrada.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="cta-button">Agendar Consulta</a>
+                <a href="#services" class="cta-button secondary">Nossos Serviços</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">+500</div>
+                    <div class="stat-label">Pacientes Atendidos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Anos de Experiência</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfação dos Pacientes</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1593810450967-f9c42742e326?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Psicóloga conversando com paciente">
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-title">
+            <h2>Nossos Serviços</h2>
+            <p>Oferecemos uma variedade de abordagens terapêuticas personalizadas para atender às suas necessidades individuais e promover seu bem-estar emocional.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <h3>Terapia Individual</h3>
+                <p>Sessões personalizadas para ajudar você a lidar com ansiedade, depressão, estresse, traumas e outros desafios emocionais. Utilizamos abordagens como TCC, Psicodinâmica e Humanista.</p>
+                <a href="#contact" class="cta-button">Agendar Sessão</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Terapia de Casal</h3>
+                <p>Melhore a comunicação, resolva conflitos e fortaleça seu relacionamento com a ajuda de um profissional especializado em dinâmicas conjugais e terapia sistêmica.</p>
+                <a href="#contact" class="cta-button">Agendar Sessão</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Terapia Familiar</h3>
+                <p>Trabalhamos com famílias para melhorar dinâmicas, resolver conflitos intergeracionais e promover harmonia no lar através da abordagem sistêmica familiar.</p>
+                <a href="#contact" class="cta-button">Agendar Sessão</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h3>Psicologia Infantil</h3>
+                <p>Ajudamos crianças e adolescentes a lidar com desafios emocionais, comportamentais e de desenvolvimento através de abordagens lúdicas e adaptadas a cada faixa etária.</p>
+                <a href="#contact" class="cta-button">Agendar Sessão</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Orientação Profissional</h3>
+                <p>Auxiliamos na escolha e transição de carreira, identificação de habilidades e desenvolvimento profissional para alcançar satisfação e realização no trabalho.</p>
+                <a href="#contact" class="cta-button">Agendar Sessão</a>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3>Mindfulness e Relaxamento</h3>
+                <p>Técnicas de redução de estresse, meditação guiada e treinamento em mindfulness para melhorar foco, equilíbrio emocional e qualidade de vida.</p>
+                <a href="#contact" class="cta-button">Agendar Sessão</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>Sobre Nós</h2>
+            <p>A Mente Sã é uma clínica de psicologia dedicada a fornecer atendimento psicológico de alta qualidade com compaixão, ética e profissionalismo. Nossos psicólogos são altamente qualificados e especializados em diversas abordagens terapêuticas.</p>
+            <p>Acreditamos que cada indivíduo é único e merece um plano de tratamento personalizado para atender às suas necessidades específicas. Nosso objetivo é criar um ambiente seguro e acolhedor onde você possa explorar seus pensamentos e sentimentos sem julgamento.</p>
+            <div class="about-features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h4>Profissionais Certificados</h4>
+                    <p>Todos os nossos terapeutas possuem registro ativo no CRP</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h4>Abordagem Humanizada</h4>
+                    <p>Tratamento centrado no paciente e em suas necessidades</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h4>Sigilo Absoluto</h4>
+                    <p>Todas as sessões são confidenciais e protegidas por ética profissional</p>
+                </div>
+            </div>
+            <a href="#team" class="cta-button">Conheça nossa equipe</a>
+        </div>
+        <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Psicóloga profissional">
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="section-title">
+            <h2>Nossa Equipe</h2>
+            <p>Conheça nossos psicólogos especializados, dedicados a fornecer o melhor atendimento e suporte emocional.</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Dra. Ana Silva">
+                </div>
+                <div class="team-info">
+                    <h3>Dra. Ana Silva</h3>
+                    <p class="specialty">Psicóloga Clínica - CRP 01/12345</p>
+                    <p class="bio">Especialista em Terapia Cognitivo-Comportamental com 12 anos de experiência no tratamento de ansiedade, depressão e transtornos do humor.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Dr. Carlos Mendes">
+                </div>
+                <div class="team-info">
+                    <h3>Dr. Carlos Mendes</h3>
+                    <p class="specialty">Psicólogo - CRP 02/54321</p>
+                    <p class="bio">Especialista em Terapia de Casal e Familiar, com abordagem sistêmica. Atua há 8 anos ajudando famílias e casais a melhorarem suas relações.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Dra. Juliana Oliveira">
+                </div>
+                <div class="team-info">
+                    <h3>Dra. Juliana Oliveira</h3>
+                    <p class="specialty">Psicóloga Infantil - CRP 03/98765</p>
+                    <p class="bio">Especializada em Psicologia Infantil e Adolescente, utiliza abordagens lúdicas e técnicas de terapia cognitiva adaptadas para crianças.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Dra. Fernanda Costa">
+                </div>
+                <div class="team-info">
+                    <h3>Dra. Fernanda Costa</h3>
+                    <p class="specialty">Neuropsicóloga - CRP 04/56789</p>
+                    <p class="bio">Especialista em avaliação neuropsicológica e reabilitação cognitiva, com experiência no tratamento de TDAH, dislexia e transtornos de aprendizagem.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>Depoimentos</h2>
+            <p>Veja o que nossos pacientes dizem sobre nossos serviços e atendimento.</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-slider">
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <p>Depois de apenas 3 meses de terapia na Mente Sã, minha ansiedade reduziu significativamente. A Dra. Ana me ajudou a desenvolver ferramentas práticas para lidar com situações estressantes no trabalho e na vida pessoal.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Mariana Santos">
+                        </div>
+                        <div class="author-info">
+                            <h4>Mariana Santos</h4>
+                            <p>Paciente desde 2021</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <div class="slider-dot active"></div>
+                <div class="slider-dot"></div>
+                <div class="slider-dot"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Psychological Tips Section -->
+    <section class="tips" id="tips">
+        <div class="section-title">
+            <h2>Dicas de Saúde Mental</h2>
+            <p>Pequenas mudanças no seu dia a dia podem fazer uma grande diferença na sua saúde emocional e qualidade de vida.</p>
+        </div>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Pratique a Gratidão</h3>
+                <p>Anote três coisas pelas quais você é grato todos os dias. Este simples exercício pode ajudar a mudar seu foco para aspectos positivos da vida, reduzindo sintomas de ansiedade e depressão.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-wind"></i>
+                </div>
+                <h3>Respire Fundo</h3>
+                <p>Quando estiver estressado, pratique a respiração profunda: inspire por 4 segundos, segure por 4, expire por 6. Repita várias vezes. Esta técnica ativa o sistema nervoso parassimpático, promovendo relaxamento.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Estabeleça Limites</h3>
+                <p>Aprenda a dizer "não" quando necessário. Proteger seu tempo e energia é essencial para o bem-estar mental. Limites saudáveis melhoram relacionamentos e reduzem o estresse.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-running"></i>
+                </div>
+                <h3>Mantenha-se Ativo</h3>
+                <p>Exercícios físicos regulares liberam endorfinas que melhoram o humor e reduzem o estresse. Mesmo 30 minutos de caminhada diária podem ter um impacto significativo na sua saúde mental.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Conecte-se</h3>
+                <p>Mantenha relacionamentos significativos. O apoio social é crucial para a saúde mental. Reserve tempo para conversas profundas com pessoas que você ama e confia.</p>
+            </div>
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <h3>Durma Bem</h3>
+                <p>Priorize o sono de qualidade. A falta de sono pode exacerbar problemas emocionais. Estabeleça uma rotina de sono e evite telas antes de dormir para melhorar sua saúde mental.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Books Section -->
+    <section class="books" id="books">
+        <div class="section-title">
+            <h2>Indicações de Leitura</h2>
+            <p>Livros que podem ajudar no seu desenvolvimento pessoal, autoconhecimento e jornada de bem-estar mental.</p>
+        </div>
+        <div class="books-grid">
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://m.media-amazon.com/images/I/41ZsdG6yq3L.jpg" alt="O Poder do Hábito">
+                </div>
+                <div class="book-info">
+                    <h3>O Poder do Hábito</h3>
+                    <p>Charles Duhigg</p>
+                    <p class="book-price">R$ 39,90</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://m.media-amazon.com/images/I/51J8VQ9gMIL.jpg" alt="A Coragem de Ser Imperfeito">
+                </div>
+                <div class="book-info">
+                    <h3>A Coragem de Ser Imperfeito</h3>
+                    <p>Brené Brown</p>
+                    <p class="book-price">R$ 42,50</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://m.media-amazon.com/images/I/41+Oj4GDrYL.jpg" alt="O Milagre da Mindfulness">
+                </div>
+                <div class="book-info">
+                    <h3>O Milagre da Mindfulness</h3>
+                    <p>Thich Nhat Hanh</p>
+                    <p class="book-price">R$ 35,90</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://m.media-amazon.com/images/I/51XwG0z6ZVL.jpg" alt="O Homem em Busca de um Sentido">
+                </div>
+                <div class="book-info">
+                    <h3>O Homem em Busca de um Sentido</h3>
+                    <p>Viktor E. Frankl</p>
+                    <p class="book-price">R$ 37,80</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://m.media-amazon.com/images/I/51F7jZ+Z5VL.jpg" alt="Ansiedade - Como Enfrentar o Mal do Século">
+                </div>
+                <div class="book-info">
+                    <h3>Ansiedade - Como Enfrentar o Mal do Século</h3>
+                    <p>Augusto Cury</p>
+                    <p class="book-price">R$ 29,90</p>
+                </div>
+            </div>
+            <div class="book-card">
+                <div class="book-cover">
+                    <img src="https://m.media-amazon.com/images/I/41VQ5+5vJUL.jpg" alt="O Poder do Agora">
+                </div>
+                <div class="book-info">
+                    <h3>O Poder do Agora</h3>
+                    <p>Eckhart Tolle</p>
+                    <p class="book-price">R$ 45,00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="section-title">
+            <h2>Perguntas Frequentes</h2>
+            <p>Tire suas dúvidas sobre terapia e nosso atendimento psicológico.</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item active">
+                <div class="faq-question">
+                    <h3>Como sei se preciso de terapia?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Se você está enfrentando dificuldades emocionais que interferem em sua vida diária, relacionamentos ou trabalho, a terapia pode ajudar. Sinais comuns incluem: sentimentos persistentes de tristeza ou ansiedade, dificuldade em lidar com estresse, mudanças no sono ou apetite, isolamento social ou pensamentos negativos recorrentes. A terapia também é útil para autoconhecimento e desenvolvimento pessoal, não apenas para problemas graves.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Quanto tempo dura cada sessão de terapia?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>As sessões geralmente duram 50 minutos, sendo este o tempo padrão na psicologia clínica. Para terapia de casal ou familiar, as sessões podem durar até 80 minutos. A frequência normalmente é semanal, especialmente no início do tratamento, mas pode variar de acordo com as necessidades de cada paciente e a abordagem terapêutica utilizada.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>A terapia online é tão eficaz quanto a presencial?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Estudos mostram que a terapia online pode ser tão eficaz quanto a presencial para muitos casos, especialmente quando conduzida por profissionais experientes. A escolha depende das preferências pessoais e do tipo de atendimento necessário. Algumas situações podem requerer atendimento presencial, mas para muitas pessoas, a terapia online oferece conveniência e acessibilidade sem comprometer a qualidade do atendimento.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Como funciona o sigilo na terapia?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Todas as informações compartilhadas nas sessões são protegidas por sigilo profissional absoluto, conforme o Código de Ética do Psicólogo. Exceções ocorrem apenas em situações extremas onde há risco iminente de vida para o paciente ou terceiros. Mesmo nestes casos, o psicólogo buscará agir da forma mais ética e respeitosa possível, geralmente em colaboração com o próprio paciente.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Quanto tempo leva para ver resultados na terapia?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>O tempo varia conforme o indivíduo e os objetivos do tratamento. Algumas pessoas sentem alívio já nas primeiras sessões, enquanto mudanças mais profundas podem levar meses. A terapia é um processo único para cada pessoa. O comprometimento com o processo e a aplicação das estratégias discutidas fora das sessões podem acelerar os resultados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Pronto para dar o primeiro passo?</h2>
+            <p>Agende sua consulta inicial e comece sua jornada em direção a uma vida mais equilibrada e saudável emocionalmente.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button">Agendar Consulta</a>
+                <a href="tel:+5511999999999" class="cta-button secondary">Ligue Agora</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Agende sua Consulta</h2>
+                <p>Estamos aqui para ajudar você a encontrar o equilíbrio emocional. Preencha o formulário ou entre em contato diretamente por telefone ou e-mail para marcar sua consulta presencial ou online.</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>(11) 99999-9999</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contato@mentesa.com.br</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Endereço</h4>
+                            <p>Av. Paulista, 1000 - 10º andar<br>São Paulo, SP - 01310-100</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Horário de Atendimento</h4>
+                            <p>Segunda a Sexta: 8h às 20h<br>Sábado: 9h às 14h</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="emergency-contact">
+                    <h4>Emergências</h4>
+                    <p>Para situações de crise, recomendamos entrar em contato com o CVV (188) ou procurar atendimento médico emergencial.</p>
+                </div>
+            </div>
+            <div class="contact-form">
+                <div class="form-header">
+                    <h3>Agendamento Online</h3>
+                    <p>Preencha o formulário abaixo e entraremos em contato para confirmar seu horário.</p>
+                </div>
+                <form id="appointment-form">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="(11) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Serviço de Interesse</label>
+                        <select id="service" name="service" required>
+                            <option value="">Selecione o serviço...</option>
+                            <option value="individual">Terapia Individual</option>
+                            <option value="couple">Terapia de Casal</option>
+                            <option value="family">Terapia Familiar</option>
+                            <option value="child">Psicologia Infantil</option>
+                            <option value="career">Orientação Profissional</option>
+                            <option value="mindfulness">Mindfulness e Relaxamento</option>
+                            <option value="notsure">Não tenho certeza</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tipo de Atendimento</label>
+                        <div class="appointment-type">
+                            <div class="appointment-option">
+                                <input type="radio" id="presential" name="appointment_type" value="presential" checked>
+                                <label for="presential">
+                                    <i class="fas fa-clinic-medical"></i>
+                                    Presencial
+                                </label>
+                            </div>
+                            <div class="appointment-option">
+                                <input type="radio" id="online" name="appointment_type" value="online">
+                                <label for="online">
+                                    <i class="fas fa-video"></i>
+                                    Online
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="therapist">Preferência de Terapeuta (Opcional)</label>
+                        <select id="therapist" name="therapist">
+                            <option value="">Sem preferência</option>
+                            <option value="ana">Dra. Ana Silva</option>
+                            <option value="carlos">Dr. Carlos Mendes</option>
+                            <option value="juliana">Dra. Juliana Oliveira</option>
+                            <option value="fernanda">Dra. Fernanda Costa</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensagem (Opcional)</label>
+                        <textarea id="message" name="message" placeholder="Alguma informação adicional que considere importante..."></textarea>
+                    </div>
+                    
+                    <div class="form-group calendar">
+                        <label>Selecione uma Data</label>
+                        <div class="calendar-header">
+                            <button type="button" id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                            <h4 id="current-month">Junho 2023</h4>
+                            <button type="button" id="next-month"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-grid" id="calendar-days">
+                            <!-- Dias serão preenchidos por JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group time-slots">
+                        <h4>Horários Disponíveis</h4>
+                        <div class="slot-buttons" id="time-slots">
+                            <!-- Horários serão preenchidos por JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-submit">
+                        <button type="submit" class="cta-button" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Solicitar Agendamento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="#home" class="footer-logo">
+                    <i class="fas fa-brain"></i>
+                    <h2>Mente Sã</h2>
+                </a>
+                <p>Cuidando da sua saúde mental com empatia, ética e profissionalismo. Oferecemos atendimento psicológico especializado para adultos, casais, famílias e crianças.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#team">Equipe</a></li>
+                    <li><a href="#tips">Dicas</a></li>
+                    <li><a href="#books">Livros</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Serviços</h3>
+                <ul>
+                    <li><a href="#">Terapia Individual</a></li>
+                    <li><a href="#">Terapia de Casal</a></li>
+                    <li><a href="#">Terapia Familiar</a></li>
+                    <li><a href="#">Psicologia Infantil</a></li>
+                    <li><a href="#">Orientação Profissional</a></li>
+                    <li><a href="#">Mindfulness</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Assine nossa newsletter e receba dicas semanais de saúde mental e bem-estar emocional.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Seu melhor email">
+                    <button type="submit">Assinar</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Mente Sã Psicologia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Menu Mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+        
+        // Fechar menu ao clicar em um link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Calendar Functionality
+        let currentDate = new Date();
+        
+        function renderCalendar() {
+            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+                               "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            
+            document.getElementById('current-month').textContent = 
+                `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+            
+            const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            const calendarDays = document.getElementById('calendar-days');
+            calendarDays.innerHTML = '';
+            
+            // Dias da semana
+            const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            weekdays.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.textContent = day;
+                dayElement.style.fontWeight = '600';
+                dayElement.style.color = 'var(--secondary)';
+                calendarDays.appendChild(dayElement);
+            });
+            
+            // Dias vazios no início
+            for (let i = 0; i < startingDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day', 'disabled');
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            // Dias do mês
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.textContent = i;
+                dayElement.classList.add('calendar-day');
+                
+                // Marcar dias passados como desabilitados
+                const today = new Date();
+                if (currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear() && i < today.getDate()) {
+                    dayElement.classList.add('disabled');
+                } else {
+                    dayElement.addEventListener('click', () => selectDay(dayElement, i));
+                }
+                
+                // Marcar sábados e domingos com cores diferentes
+                const dayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), i).getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    dayElement.style.color = '#e74c3c';
+                }
+                
+                calendarDays.appendChild(dayElement);
+            }
+        }
+        
+        function selectDay(element, day) {
+            document.querySelectorAll('.calendar-day').forEach(el => {
+                el.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Gerar horários disponíveis
+            const timeSlots = document.getElementById('time-slots');
+            timeSlots.innerHTML = '';
+            
+            // Horários de semana vs final de semana
+            const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+            const isWeekend = selectedDate.getDay() === 0 || selectedDate.getDay() === 6;
+            
+            const slots = isWeekend ? 
+                ['09:00', '10:30', '12:00'] : // Horários de final de semana
+                ['08:00', '09:30', '11:00', '14:00', '15:30', '17:00', '18:30']; // Horários de semana
+            
+            slots.forEach(slot => {
+                const slotButton = document.createElement('button');
+                slotButton.type = 'button';
+                slotButton.classList.add('slot-button');
+                slotButton.textContent = slot;
+                slotButton.addEventListener('click', () => {
+                    document.querySelectorAll('.slot-button').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    slotButton.classList.add('selected');
+                });
+                timeSlots.appendChild(slotButton);
+            });
+        }
+        
+        document.getElementById('prev-month').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+        
+        document.getElementById('next-month').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+        
+        // Form Submission
+        document.getElementById('appointment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Validar seleção de data e horário
+            const selectedDay = document.querySelector('.calendar-day.selected');
+            const selectedSlot = document.querySelector('.slot-button.selected');
+            
+            if (!selectedDay) {
+                alert('Por favor, selecione uma data para sua consulta.');
+                return;
+            }
+            
+            if (!selectedSlot) {
+                alert('Por favor, selecione um horário para sua consulta.');
+                return;
+            }
+            
+            // Simular envio do formulário
+            const formData = new FormData(e.target);
+            const appointmentType = formData.get('appointment_type') === 'online' ? 'Online' : 'Presencial';
+            
+            // Exibir mensagem de confirmação
+            const confirmationMessage = `
+                Consulta ${appointmentType} agendada com sucesso para:
+                ${selectedDay.textContent} ${document.getElementById('current-month').textContent} às ${selectedSlot.textContent}
+                
+                Enviaremos um e-mail de confirmação para ${formData.get('email')} com todos os detalhes.
+                
+                Obrigado por escolher a Mente Sã!
+            `;
+            
+            alert(confirmationMessage);
+            
+            // Resetar formulário
+            e.target.reset();
+            document.querySelectorAll('.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+        });
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+                
+                // Fechar outros itens quando um novo é aberto
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Suavizar scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Ajuste para a navbar
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Inicializar calendário
+        renderCalendar();
+    </script>
+</body>
+</html>
